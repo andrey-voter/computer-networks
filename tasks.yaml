@@ -10,7 +10,7 @@ settings:
 
 
 ui:
-  task_url_template: https://gitlab.manytask.org/computer-networks/public-2024-spring/-/tree/main/$GROUP_NAME/tasks/$TASK_NAME
+  task_url_template: https://gitlab.manytask.org/computer-networks/public-2024-spring/-/tree/main/$GROUP_NAME/$TASK_NAME
 
   links:
     "Contribute Manytask": https://github.com/manytask
