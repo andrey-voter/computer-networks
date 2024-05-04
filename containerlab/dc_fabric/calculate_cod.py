@@ -1,4 +1,6 @@
 import math
+import matplotlib.pyplot as plt
+import networkx as nx
 
 
 class CodCalculationResult:
@@ -67,6 +69,9 @@ class CodCalculator:
 MyCodCalculator = CodCalculator()
 calculation_result = MyCodCalculator.calculate_all()
 print(len(calculation_result))
+print(calculation_result[0])
+
+
 for calculated_cod in calculation_result:
     print(calculated_cod, MyCodCalculator.calculate_cod_price(calculated_cod))
 
@@ -74,3 +79,34 @@ print("-" * 200 + '\n' + "-" * 200)
 
 for calculated_cod in calculation_result:
     print(MyCodCalculator.calculate_economic_effect(calculated_cod, 2))
+
+
+def visualize_cod(cod):
+    num_leafs = cod.num_leafs
+    num_spine = cod.num_spine
+    graph = nx.Graph()
+
+    spine_nodes = [f"s_{i}" for i in range(num_spine)]
+    graph.add_nodes_from(spine_nodes)
+
+    leaf_nodes = [f"l_{i}" for i in range(num_leafs)]
+    graph.add_nodes_from(leaf_nodes)
+
+    for i in range(num_spine):
+        for j in range(math.ceil(num_leafs / num_spine)):
+            leaf_index = i * (num_leafs // num_spine) + j
+            graph.add_edge(spine_nodes[i], leaf_nodes[leaf_index])
+
+    pos = {}
+    for i, node in enumerate(spine_nodes):
+        pos[node] = (i * 2, 2)
+    for i, node in enumerate(leaf_nodes):
+        pos[node] = (i, 0)
+
+    nx.draw(graph, pos, with_labels=True, node_size=1000, node_color="skyblue", font_size=10, font_weight='bold')
+    plt.title("COD Visualization")
+    plt.show()
+
+
+result = CodCalculationResult(num_leafs=15, num_leaf_spine_links=2, num_spine=2)
+visualize_cod(result)
