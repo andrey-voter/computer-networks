@@ -68,17 +68,25 @@ class CodCalculator:
 
 MyCodCalculator = CodCalculator()
 calculation_result = MyCodCalculator.calculate_all()
-print(len(calculation_result))
-print(calculation_result[0])
-
+print(f"Всего произведено расчетов: {len(calculation_result)}")
 
 for calculated_cod in calculation_result:
-    print(calculated_cod, MyCodCalculator.calculate_cod_price(calculated_cod))
+    print(
+        f"|\t{calculated_cod.num_leafs}"
+        f"\t|\t{calculated_cod.num_leaf_spine_links}"
+        f"\t|\t{calculated_cod.num_spine}"
+        f"\t|\t{calculated_cod.params}"
+        f"\t|\t{MyCodCalculator.calculate_cod_price(calculated_cod)}")
 
 print("-" * 200 + '\n' + "-" * 200)
 
 for calculated_cod in calculation_result:
-    print(MyCodCalculator.calculate_economic_effect(calculated_cod, 2))
+    ef = MyCodCalculator.calculate_economic_effect(calculated_cod, 2)
+    print(f"|\t1\t|\t{ef[(1, 64)]}"
+          f"\t|\t2\t|\t{ef[(2, 64)]}"
+          f"\t|\t3\t|\t{ef[(3, 64)]}"
+          f"\t|\t4\t|\t{ef[(4, 64)]}\t")
+    # print(ef)
 
 
 def visualize_cod(cod):
